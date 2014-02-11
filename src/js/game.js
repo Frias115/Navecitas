@@ -8,7 +8,7 @@
   Game.prototype = {
 
     create: function () {
-		var bleh = 0;
+		var prueba = 0;
       var x = this.game.width / 2
         , y = this.game.height / 2;
 
