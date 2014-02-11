@@ -8,8 +8,49 @@
   Game.prototype = {
 
     create: function () {
-		var prueba = 0;
-      var x = this.game.width / 2
+		var x = this.game.width / 2
+        , y = this.game.height / 2;
+        
+		
+		this.player = this.add.sprite (300, 300, 'spaceship');
+		
+		
+		
+		
+	},
+		
+	update: function() {
+		
+		var wKey;
+        var aKey;
+        var sKey;
+        var dKey;
+		
+		if (this.input.keyboard.isDown(Phaser.Keyboard.W))
+		{
+			this.player.y -=5;
+		}
+		else if (this.input.keyboard.isDown(Phaser.Keyboard.S))
+		{
+			this.player.y +=5;
+		}
+		
+		
+		if (this.input.keyboard.isDown(Phaser.Keyboard.A))
+		{
+			this.player.x -=5;
+		}
+		else if (this.input.keyboard.isDown(Phaser.Keyboard.D))
+		{
+			this.player.x +=5;
+		}
+		
+		if (this.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR))
+		{
+			
+		}
+    }
+      /*var x = this.game.width / 2
         , y = this.game.height / 2;
 
       this.player = this.add.sprite(x, y, 'player');
@@ -38,7 +79,7 @@
 
     onInputDown: function () {
       this.game.state.start('menu');
-    }
+    }*/
 
   };
 

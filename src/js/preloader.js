@@ -15,6 +15,7 @@
       this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
       this.load.setPreloadSprite(this.asset);
       this.load.image('player', 'assets/player.png');
+      this.load.image('spaceship', 'assets/spaceship.png');
       this.load.bitmapFont('minecraftia', 'assets/minecraftia.png', 'assets/minecraftia.xml');
       this.load.spritesheet('startButton', 'assets/button_sprite_sheet.png', 193, 71);
       this.load.spritesheet('highscoreButton', 'assets/button_sprite_sheet.png', 193, 71);
