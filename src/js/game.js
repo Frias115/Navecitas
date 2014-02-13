@@ -14,7 +14,10 @@
 		
 		this.player = this.add.sprite (300, 300, 'spaceship');
 		
-		
+		this.bullets = this.add.group();
+		this.bullets.createMultiple(10, 'bullet');
+		this.bullets.callAll('events.onOutOfBounds.add', 'events.onOutOfBounds', function(bullet){bullet.kill()}, this);
+
 		
 		
 	},
@@ -25,6 +28,8 @@
         var aKey;
         var sKey;
         var dKey;
+        
+        
 		
 		if (this.input.keyboard.isDown(Phaser.Keyboard.W))
 		{
@@ -47,9 +52,30 @@
 		
 		if (this.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR))
 		{
-			
+			this.fireBullet();
 		}
-    }
+    },
+    
+    fireBullet: function() {
+		
+		var bullet;
+		var bullets;
+		var bulletTime = 0;
+
+		if (this.time.now > bulletTime)
+		{
+			this.bullet = this.bullets.getFirstExists(false);
+
+			if (this.bullet)
+			{
+				this.bullet.reset(this.player.x + 20, this.player.y - 6);
+				this.bullet.body.velocity.y = -300;
+				this.bulletTime = this.time.now + 250;
+			}
+		}
+	},
+	
+	
       /*var x = this.game.width / 2
         , y = this.game.height / 2;
 
