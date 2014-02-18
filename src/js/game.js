@@ -3,6 +3,7 @@
 
   function Game() {
     this.player = null;
+    this.bulletTime = 0;
   }
 
   Game.prototype = {
@@ -13,23 +14,16 @@
         
 		
 		this.player = this.add.sprite (300, 300, 'spaceship');
+		this.player.body.collideWorldBounds = true;
 		
 		this.bullets = this.add.group();
-		this.bullets.createMultiple(10, 'bullet');
+		this.bullets.createMultiple(30, 'bullet');
 		this.bullets.callAll('events.onOutOfBounds.add', 'events.onOutOfBounds', function(bullet){bullet.kill()}, this);
 
-		
 		
 	},
 		
 	update: function() {
-		
-		var wKey;
-        var aKey;
-        var sKey;
-        var dKey;
-        
-        
 		
 		if (this.input.keyboard.isDown(Phaser.Keyboard.W))
 		{
@@ -50,6 +44,7 @@
 			this.player.x +=5;
 		}
 		
+		
 		if (this.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR))
 		{
 			this.fireBullet();
@@ -58,11 +53,10 @@
     
     fireBullet: function() {
 		
-		var bullet;
-		var bullets;
-		var bulletTime = 0;
+		
+		
 
-		if (this.time.now > bulletTime)
+		if (this.time.now > this.bulletTime)
 		{
 			this.bullet = this.bullets.getFirstExists(false);
 
@@ -70,7 +64,7 @@
 			{
 				this.bullet.reset(this.player.x + 20, this.player.y - 6);
 				this.bullet.body.velocity.y = -300;
-				this.bulletTime = this.time.now + 250;
+				this.bulletTime = this.time.now + 300;
 			}
 		}
 	},

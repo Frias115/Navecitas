@@ -24,10 +24,6 @@
     update: function () {
 
     },
-
-    onDown: function () {
-      
-    }
   };
 
   window['naves'] = window['naves'] || {};
