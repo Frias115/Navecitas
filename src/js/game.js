@@ -3,7 +3,8 @@
 
   function Game() {
     this.player = null;
-    this.bulletTime = 0;
+    this.bulletTime1 = 0;
+    this.bulletTime2 = 0;
   }
 
   Game.prototype = {
@@ -14,7 +15,9 @@
         
 		
 		this.player = this.add.sprite (300, 300, 'spaceship');
+		this.player.body.setPolygon(49, 16, 63, 24, 76, 38, 76, 0, 91, 35, 99, 50, 94, 62, 81, 68, 72, 68, 65, 79, 34, 79, 27, 68, 18, 68, 5, 62, 0, 50, 8, 35, 23, 0, 23, 38, 38, 24, 49, 16);
 		this.player.body.collideWorldBounds = true;
+		
 		
 		this.bullets = this.add.group();
 		this.bullets.createMultiple(30, 'bullet');
@@ -56,18 +59,29 @@
 		
 		
 
-		if (this.time.now > this.bulletTime)
-		{
+		if (this.time.now > this.bulletTime1) {
 			this.bullet = this.bullets.getFirstExists(false);
-
-			if (this.bullet)
-			{
-				this.bullet.reset(this.player.x + 20, this.player.y - 6);
-				this.bullet.body.velocity.y = -300;
-				this.bulletTime = this.time.now + 300;
+			if (this.bullet) {
+				this.bullet.reset(this.player.x + 35, this.player.y + 15);
+				this.bullet.body.velocity.y = -400;
+				this.bulletTime1 = this.time.now + 300;
+			}
+		}
+			
+			if  (this.time.now > this.bulletTime2) {
+			this.bullet = this.bullets.getFirstExists(false);
+			if (this.bullet) {
+				this.bullet.reset(this.player.x + 57, this.player.y + 15);
+				this.bullet.body.velocity.y = -400;
+				this.bulletTime2 = this.time.now + 300;
 			}
 		}
 	},
+	
+	/*render: function(){
+		this.game.debug.renderBodyInfo(this.player, 32, 32);
+		this.game.debug.renderPhysicsBody(this.player.body);
+	}/*
 	
 	
       /*var x = this.game.width / 2
