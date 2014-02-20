@@ -30,21 +30,29 @@
 		
 		if (this.input.keyboard.isDown(Phaser.Keyboard.W))
 		{
+			if ( this.player.y > 0){
 			this.player.y -=5;
+			}
 		}
 		else if (this.input.keyboard.isDown(Phaser.Keyboard.S))
 		{
-			this.player.y +=5;
+			if ( this.player.y < 800){
+				this.player.y +=5;
+			}
 		}
 		
 		
 		if (this.input.keyboard.isDown(Phaser.Keyboard.A))
 		{
-			this.player.x -=5;
+			if ( this.player.x > 0){
+				this.player.x -=5;
+			}
 		}
 		else if (this.input.keyboard.isDown(Phaser.Keyboard.D))
 		{
-			this.player.x +=5;
+			if ( this.player.x < 540){
+				this.player.x +=5;
+			}
 		}
 		
 		
