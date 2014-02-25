@@ -5,6 +5,7 @@
     this.player = null;
     this.bulletTime1 = 0;
     this.bulletTime2 = 0;
+    this.enemy = 0;
   }
 
   Game.prototype = {
@@ -18,6 +19,9 @@
 		this.player.body.setPolygon(49, 16, 63, 24, 76, 38, 76, 0, 91, 35, 99, 50, 94, 62, 81, 68, 72, 68, 65, 79, 34, 79, 27, 68, 18, 68, 5, 62, 0, 50, 8, 35, 23, 0, 23, 38, 38, 24, 49, 16);
 		this.player.body.collideWorldBounds = true;
 		
+		this.enemys = this.add.group();
+		this.enemys.createMultiple(10, 'enemy');
+		this.enemys.setAll('outOfBoundsKill', true);
 		
 		this.bullets = this.add.group();
 		this.bullets.createMultiple(30, 'bullet');
@@ -45,13 +49,13 @@
 		if (this.input.keyboard.isDown(Phaser.Keyboard.A))
 		{
 			if ( this.player.x > 0){
-				this.player.x -=5;
+				this.player.x -=6;
 			}
 		}
 		else if (this.input.keyboard.isDown(Phaser.Keyboard.D))
 		{
 			if ( this.player.x < 540){
-				this.player.x +=5;
+				this.player.x +=6;
 			}
 		}
 		
@@ -60,13 +64,24 @@
 		{
 			this.fireBullet();
 		}
+		
+		this.enemysCheck = this.enemys.getFirstExists(false)
+		if (this.enemysCheck){
+			this.enemysCheck.reset(Math.random()*640, 0);
+			this.enemysCheck.body.velocity.y = 400;
+			
+		}
+		
+		this.enemysCheck = this.enemys.getFirstExists(false)
+		if (this.enemysCheck){
+			this.enemysCheck.reset(0, Math.random()*580);
+			this.enemysCheck.body.velocity.x = 400;
+			
+		}
     },
     
     fireBullet: function() {
 		
-		
-		
-
 		if (this.time.now > this.bulletTime1) {
 			this.bullet = this.bullets.getFirstExists(false);
 			if (this.bullet) {
@@ -85,7 +100,7 @@
 			}
 		}
 	},
-	
+
 	/*render: function(){
 		this.game.debug.renderBodyInfo(this.player, 32, 32);
 		this.game.debug.renderPhysicsBody(this.player.body);
