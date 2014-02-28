@@ -11,6 +11,7 @@ window.onload = function () {
   game.state.add('highscore', ns.Highscore);
   game.state.add('options', ns.Options);
   game.state.add('game', ns.Game);
+  game.state.add('gameover', ns.Gameover);
 
   game.state.start('boot');
 };
