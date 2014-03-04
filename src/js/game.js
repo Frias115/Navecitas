@@ -7,23 +7,35 @@
     this.enemy = null;
     this.bulletTime1 = 0;
     this.bulletTime2 = 0;
+    this.bulletE1Time = 0;
     this.playerLive = true;
+    this.score = 0;
+    
+    
   }
 
   Game.prototype = {
 
     create: function () {
+		this.background = this.add.tileSprite(0,0, 640, 880, 'background');
 		var x = this.game.width / 2
         , y = this.game.height / 2;
         
+        this.livingEnemies = new Array();
 		
 		this.player = this.add.sprite (300, 700, 'spaceship');
 		this.player.body.setPolygon(49, 16, 63, 24, 76, 38, 76, 0, 91, 35, 99, 50, 94, 62, 81, 68, 72, 68, 65, 79, 34, 79, 27, 68, 18, 68, 5, 62, 0, 50, 8, 35, 23, 0, 23, 38, 38, 24, 49, 16);
 		this.player.body.collideWorldBounds = true;
 		this.player.health = 3;
 		
+		this.playerLives = "Health: ";
+		this.playerLivesTxt = this.add.text(10, 10, this.playerLives + this.player.health, { fontSize: '34px', fill: '#fff', font: '16px minecraftia'});
+		
+		this.scoreString = "Score: "; 
+		this.scoreTxt = this.add.text(500, 10, this.scoreString + this.score, { fontSize: '34px', fill: '#fff', font: '16px minecraftia'});
+		
 		this.enemys = this.add.group();
-		this.enemys.createMultiple(10, 'enemy');
+		this.enemys.createMultiple(20, 'enemy');
 		this.enemys.setAll('outOfBoundsKill', true);
 		
 		this.bullets1 = this.add.group();
@@ -33,11 +45,11 @@
 		this.bullets2 = this.add.group();
 		this.bullets2.createMultiple(30, 'bullet2');
 		this.bullets2.callAll('events.onOutOfBounds.add', 'events.onOutOfBounds', function(bullet2){bullet2.kill()}, this);
-
 		
 	},
 		
 	update: function() {
+		this.background.tilePosition.y += 4;
 		
 		if (this.input.keyboard.isDown(Phaser.Keyboard.W))
 		{
@@ -53,7 +65,6 @@
 		}
 	
 		
-		
 		if (this.input.keyboard.isDown(Phaser.Keyboard.A))
 		{
 			if ( this.player.x > 0){
@@ -68,32 +79,31 @@
 		}
 		
 		
-		
 		if (this.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR))
 		{
 			this.fireBullet();
 		}
 	
 		
-		
-		this.enemysCheck = this.enemys.getFirstExists(false);
-		if (this.enemysCheck){
-			this.enemysCheck.reset(Math.random()*560, -150);
-			this.enemysCheck.body.velocity.y = 400;
-			this.enemysCheck.health = 1;
+	
+		this.enemyGame = this.enemys.getFirstExists(false);
+		if (this.enemyGame){
+			this.enemyGame.reset(Math.random()*560, -150);
+			this.enemyGame.body.velocity.y = 700;
+			this.enemyGame.health = 1;
 		}
 		
 		
-		this.physics.overlap(this.bullets1, this.enemys, function(bullet1,enemy) { bullet1.kill(); enemy.damage(1);}, null, this);
+		this.physics.overlap(this.bullets1, this.enemys, function(bullet1,enemy) { bullet1.kill(); enemy.damage(1); this.score += 10; this.scoreTxt.content = this.scoreString + this.score;}, null, this);
 		this.physics.overlap(this.bullets2, this.enemys, function(bullet2,enemy) { bullet2.kill(); enemy.damage(1);}, null, this);
-		this.physics.overlap(this.player, this.enemys, function(player,enemy) { enemy.kill(); player.damage(1);}, null, this);
+		this.physics.overlap(this.player, this.enemys, function(player,enemy) { enemy.kill(); player.damage(1); this.playerLivesTxt.content = this.playerLives + this.player.health}, null, this);
 		this.physics.overlap(this.enemys, this.enemys, function(enemy) { enemy.kill();}, null, this);
 		
 		if (this.player.health == 0){
 			this.game.state.start('gameover');
+			this.score = 0;
 		}
-		var life = this.player.health;
-		this.healthTxt = this.add.bitmapText(10, 10, 'Health: ' + life, {font: '16px minecraftia', align: 'center'});
+		
 		
     },
     
@@ -117,6 +127,7 @@
 			}
 		}
 	},
+	
 
 	/*render: function(){
 		this.game.debug.renderBodyInfo(this.player, 32, 32);
@@ -154,7 +165,6 @@
     onInputDown: function () {
       this.game.state.start('menu');
     }*/
-
   };
 
   window['naves'] = window['naves'] || {};

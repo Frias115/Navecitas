@@ -13,15 +13,16 @@
         , y = this.game.height / 2;
 
 
-      this.titleTxt = this.add.bitmapText(x, 200, 'Game', {font: '16px minecraftia', align: 'center'});
+      this.titleTxt = this.add.bitmapText(x, 30, 'Autopista espacial', {font: '32px minecraftia', align: 'center'});
       this.titleTxt.anchor.setTo(0.5, 0.5);
+      
+      this.titleImg = this.add.sprite (250, 80, 'menuimg');
 
-      this.startButton = this.add.button(this.world.centerX, 300, 'startButton', function(){this.game.state.start('game');}, this, 2, 1, 0);
+      this.startButton = this.add.button(this.world.centerX, 300, 'startButton', function(){this.game.state.start('game');}, this);
       this.startButton.anchor.setTo(0.5, 0.5);
-      this.highscoreButton = this.add.button(this.world.centerX, 400, 'highscoreButton', function(){this.game.state.start('highscore');}, this, 2, 1, 0);
+      this.highscoreButton = this.add.button(this.world.centerX, 400, 'highscoreButton', function(){this.game.state.start('highscore');}, this);
       this.highscoreButton.anchor.setTo(0.5, 0.5);
-      this.optionsButton = this.add.button(this.world.centerX, 500, 'optionsButton', function(){this.game.state.start('options');}, this, 2, 1, 0);
-      this.optionsButton.anchor.setTo(0.5, 0.5);
+      
 
       
     },

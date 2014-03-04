@@ -16,16 +16,19 @@
       this.load.setPreloadSprite(this.asset);
       this.load.image('player', 'assets/player.png');
       this.load.image('spaceship', 'assets/spaceship1.png');
-      this.load.image('bullet1', 'assets/Bullet.png');
-      this.load.image('bullet2', 'assets/Bullet.png');
+      this.load.image('bullet1', 'assets/bulletP.png');
+      this.load.image('bullet2', 'assets/bulletP.png');
+      this.load.image('bulletE1', 'assets/bulletE.png');
       this.load.image('enemy' , 'assets/enemy1.png');
+      this.load.image('menuimg', 'assets/titleimg.png');
+      this.load.image('background', 'assets/background.png');
       this.load.bitmapFont('minecraftia', 'assets/minecraftia.png', 'assets/minecraftia.xml');
-      this.load.spritesheet('startButton', 'assets/button_sprite_sheet.png', 193, 71);
-      this.load.spritesheet('highscoreButton', 'assets/button_sprite_sheet.png', 193, 71);
+      this.load.image('startButton', 'assets/buttonPlay.png');
+      this.load.image('highscoreButton', 'assets/buttonHigh.png');
       this.load.spritesheet('backButton', 'assets/button_sprite_sheet.png', 193, 71);
-      this.load.spritesheet('optionsButton', 'assets/button_sprite_sheet.png', 193, 71);
-      this.load.spritesheet('restartButton', 'assets/button_sprite_sheet.png', 193, 71);
-      this.load.spritesheet('menuButton', 'assets/button_sprite_sheet.png', 193, 71);
+      
+      this.load.image('restartButton', 'assets/buttonRetry.png');
+      this.load.image('menuButton', 'assets/buttonMenu1.png');
     },
 
     create: function () {
